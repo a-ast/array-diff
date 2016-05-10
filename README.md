@@ -1,6 +1,6 @@
 # ArrayDiff Calculator
 
-ArrayDiff Calculator works similar to a php function array_diff_assoc 
+ArrayDiff Calculator works similar to a php function ```array_diff_assoc``` 
 but calculates a difference of arrays in a better way due to:
 
 * using expressions (value matching),
@@ -39,11 +39,11 @@ because
 
 **Advanced example**
 
-Let's Assume we have two arrays:
+Let's assume we have two arrays:
 
 <table>
 <tr>
-<td>
+<td width="50%">
 <pre lang="php">
 $array1 = [
     'name'     => '<type.string>',
@@ -56,7 +56,7 @@ $array1 = [
 ];
 </pre>
 </td>
-<td>
+<td width="50%">
 <pre lang="php">
 $array2 = [
     'name'     => 'The Lord of the Rings',
@@ -72,7 +72,7 @@ $array2 = [
 </tr>
 </table>
 
-You can calculate difference of arrays using expression matching:
+You can calculate difference of these arrays using an expression matching:
 ```php
 
 $calc = new Calculator(new ExpressionMatcher());
