@@ -16,7 +16,7 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider fixtureSimpleDataProvider
      */
-    public function testDiffWithSimpleMatcher($expected, $actual, $expectedDiff)
+    public function testCalculateDiffWithSimpleMatcher($expected, $actual, $expectedDiff)
     {
         $calculator = new Calculator(new SimpleMatcher());
         $calculator->setSequentialKeysSupported(true);
@@ -43,7 +43,7 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider fixtureExpressionDataProvider
      */
-    public function testDiffWithExpressionMatcher($expected, $actual, $expectedDiff)
+    public function testCalculateDiffWithExpressionMatcher($expected, $actual, $expectedDiff)
     {
         $calculator = new Calculator(new ExpressionMatcher());
 
