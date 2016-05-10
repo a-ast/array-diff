@@ -28,6 +28,16 @@ class Diff implements DiffInterface
         $this->formatter = new Formatter();
     }
 
+    public function getMissing()
+    {
+        return $this->missing;
+    }
+
+    public function getUnmatched()
+    {
+        return $this->unmatched;
+    }
+
     public function addMissing($propertyPath, $expected)
     {
         $this->missing[] = [
@@ -49,23 +59,17 @@ class Diff implements DiffInterface
         return $this;
     }
     
-    public function toArray($format)
+    public function toArray($format = '')
     {
         return $this->formatter->toArray($this, $format);
     }
 
-    public function toString($format)
+    public function toString($format = '')
     {
+        if('' === $format) {
+            $format = DiffFormats::FULL_YAML;
+        }
+
         return $this->formatter->toString($this, $format);
-    }
-
-    public function getMissing()
-    {
-        return $this->missing;
-    }
-
-    public function getUnmatched()
-    {
-        return $this->unmatched;
     }
 }
