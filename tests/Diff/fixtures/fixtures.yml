@@ -1,0 +1,105 @@
+test_add_one_missing_item:
+    input:
+        missing:
+            -
+              ['People1', 'Hobbit']
+        unmatched: []
+    format1:
+        missing:
+            -
+                key_path: 'People1'
+                expected: 'Hobbit'
+        unmatched: []
+    format2:
+        People1: 'Hobbit'
+
+test_add_more_than_one_missing_item:
+    input:
+        missing:
+            -
+                ['People1', 'Hobbit']
+            -
+                ['People2', 'Elf']
+        unmatched: []
+    format1:
+        missing:
+            -
+                key_path: 'People1'
+                expected: 'Hobbit'
+            -
+                key_path: 'People2'
+                expected: 'Elf'
+        unmatched: []
+    format2:
+        People1: 'Hobbit'
+        People2: 'Elf'
+
+test_add_one_unmatched_item:
+    input:
+        missing: []
+        unmatched:
+            -
+              ['People1', 'Hobbit', 'Elf']
+    format1:
+        missing: []
+        unmatched:
+            -
+                key_path: 'People1'
+                expected: 'Hobbit'
+                actual: 'Elf'
+    format2:
+        People1: 'Hobbit'
+
+test_add_more_than_one_unmatched_item:
+    input:
+        missing: []
+        unmatched:
+              -
+                  ['People1', 'Hobbit', 'Man']
+              -
+                  ['People2', 'Elf', 'Dwarf']
+    format1:
+        missing: []
+        unmatched:
+            -
+                key_path: 'People1'
+                expected: 'Hobbit'
+                actual: 'Man'
+            -
+                key_path: 'People2'
+                expected: 'Elf'
+                actual: 'Dwarf'
+        unmatched: []
+    format2:
+        People1: 'Hobbit'
+        People2: 'Elf'
+
+test_add_missing_and_unmatched_items:
+    input:
+        missing:
+              -
+                  ['People1', 'Dwarf']
+        unmatched:
+              -
+                  ['People2', 'Hobbit', 'Man']
+              -
+                  ['People3', 'Elf', 'Dwarf']
+    format1:
+        missing:
+            -
+                key_path: 'People1'
+                expected: 'Dwarf'
+        unmatched:
+            -
+                key_path: 'People2'
+                expected: 'Hobbit'
+                actual: 'Man'
+            -
+                key_path: 'People3'
+                expected: 'Elf'
+                actual: 'Dwarf'
+        unmatched: []
+    format2:
+        People1: 'Dwarf'
+        People2: 'Hobbit'
+        People3: 'Elf'

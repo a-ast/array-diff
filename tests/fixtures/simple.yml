@@ -1,0 +1,193 @@
+test_equal_sequential_arrays:
+    array1:
+        - 'Man'
+        - 'Elf'
+        - 'Dwarf'
+        - 'Orc'
+    array2:
+        - 'Elf'
+        - 'Man'
+        - 'Orc'
+        - 'Dwarf'
+    diff:
+        missing: []
+        unmatched: []
+
+test_sequential_arrays_with_missing_item:
+    array1: ['Man', 'Elf', 'Dwarf', 'Orc']
+    array2: ['Dwarf', 'Man', 'Elf']
+    diff:
+        missing:
+            -
+                key_path: 3
+                expected: 'Orc'
+        unmatched: []
+
+test_equal_mixed_arrays:
+    array1:
+        0: 'Man'
+        1: 'Elf'
+        Dwarves: ['Durin', 'Thorin', 'Thror']
+        3: 'Orc'
+
+    array2:
+        0: 'Orc'
+        1: 'Elf'
+        2: 'Man'
+        Dwarves: ['Thror', 'Durin', 'Thorin']
+    diff:
+        missing: []
+        unmatched: []
+
+test_mixed_arrays_with_missing_item:
+    array1:
+        0: 'Man'
+        1: 'Elf'
+        Dwarves: ['Durin', 'Thorin', 'Thror']
+        2: 'Orc'
+
+    array2:
+        0: 'Orc'
+        1: 'Elf'
+        Dwarves: ['Thror', 'Thorin']
+        2: 'Man'
+    diff:
+        missing:
+            -
+                key_path: 'Dwarves/0'
+                expected: 'Durin'
+        unmatched: []
+
+test_missing_item_of_depth_1:
+    array1:
+        Team: 'The Fellowship Of The Ring'
+        FoundationPlace: 'Rivendell'
+    array2:
+        FoundationPlace: 'Rivendell'
+    diff:
+        missing:
+            -
+                key_path: 'Team'
+                expected: 'The Fellowship Of The Ring'
+        unmatched: []
+
+test_missing_item_of_depth_gt_1:
+    array1:
+        Team:
+            Hobbits:
+                - 'Bilbo'
+                - 'Frodo'
+            Elves: []
+    array2:
+        Team:
+            Hobbits:
+                - 'Frodo'
+    diff:
+        missing:
+            -
+                key_path: 'Team/Hobbits/0'
+                expected: 'Bilbo'
+            -
+                key_path: 'Team/Elves'
+                expected: []
+        unmatched: []
+
+test_unmatched_item_of_depth_1:
+    array1:
+        Team: 'The Fellowship Of The Ring'
+        FoundationPlace: 'Rivendell'
+    array2:
+        Team: 'The Fellowship Of The Ball'
+        FoundationPlace: 'Rivendell'
+    diff:
+        missing: []
+        unmatched:
+            -
+                key_path: 'Team'
+                expected: 'The Fellowship Of The Ring'
+                actual: 'The Fellowship Of The Ball'
+
+test_unmatched_items_of_depth_1:
+    array1:
+        Team: 'The Fellowship Of The Ring'
+        FoundationDate: 'T.A. 3018'
+        FoundationPlace: 'Rivendell'
+    array2:
+        Team: 'The Fellowship Of The Ball'
+        FoundationPlace: 'Rivendell'
+        FoundationDate: 'T.A. 3011'
+    diff:
+        missing: []
+        unmatched:
+            -
+                key_path: 'Team'
+                expected: 'The Fellowship Of The Ring'
+                actual: 'The Fellowship Of The Ball'
+            -
+                key_path: 'FoundationDate'
+                expected: 'T.A. 3018'
+                actual: 'T.A. 3011'
+
+test_missing_and_unmatched_items_of_depth_1:
+    array1:
+        Team: 'The Fellowship Of The Ring'
+        FoundationDate: 'T.A. 3018'
+        FoundationPlace: 'Rivendell'
+    array2:
+        Team: 'The Fellowship Of The Ball'
+        FoundationDate: 'T.A. 3011'
+    diff:
+        missing:
+            -
+                key_path: 'FoundationPlace'
+                expected: 'Rivendell'
+        unmatched:
+            -
+                key_path: 'Team'
+                expected: 'The Fellowship Of The Ring'
+                actual: 'The Fellowship Of The Ball'
+            -
+                key_path: 'FoundationDate'
+                expected: 'T.A. 3018'
+                actual: 'T.A. 3011'
+
+test_missing_and_unmatched_items_of_depth_more_than_1:
+    array1:
+        Team: 'The Fellowship Of The Ring'
+        FoundationDate: 'T.A. 3018'
+        FoundationPlace: 'Rivendell'
+        Members:
+            Hobbits:
+                Hobbit1: 'Bilbo'
+                Hobbit2: 'Frodo'
+            Elves:
+                Elf1: 'Elrond'
+                Elf2: 'Galadriel'
+                Elf3: 'Legolas'
+    array2:
+        Team: 'The Fellowship Of The Ball'
+        FoundationDate: 'T.A. 3018'
+        Members:
+            Hobbits:
+                Hobbit1: 'Bilbo'
+                Hobbit2: 'Peregrin'
+            Elves:
+                Elf1: 'Elrond'
+                Elf3: 'Legolas'
+    diff:
+        missing:
+            -
+                key_path: 'FoundationPlace'
+                expected: 'Rivendell'
+            -
+                key_path: 'Members/Elves/Elf2'
+                expected: 'Galadriel'
+        unmatched:
+            -
+                key_path: 'Team'
+                expected: 'The Fellowship Of The Ring'
+                actual: 'The Fellowship Of The Ball'
+            -
+                key_path: 'Members/Hobbits/Hobbit2'
+                expected: 'Frodo'
+                actual: 'Peregrin'

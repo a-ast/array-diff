@@ -1,0 +1,70 @@
+-
+    pattern: 'Your result <type.float(1)>% is sent to <type.email()>'
+    value: 'Your result 88.7% is sent to aa@aa.com'
+    is_matched: true
+-
+    pattern: '<type.boolean> <type.integer>'
+    value: 'true 86'
+    is_matched: true
+-
+    pattern: '<type.boolean> <type.integer>'
+    value: 'true 007'
+    is_matched: false
+-
+    pattern: '<type.string> <type.integer>'
+    value: 'true 86'
+    is_matched: true
+-
+    pattern: '<type.string> <type.integer>'
+    value: 'true thing'
+    is_matched: false
+-
+    pattern: '<type.string> <type.string>'
+    value: 'true thing'
+    is_matched: true
+-
+    pattern: '<type.string>-<type.string>'
+    value: ex-president
+    is_matched: true
+-
+    pattern: '<type.string>/-<type.string>'
+    value: ex/-president
+    is_matched: true
+-
+    # check that regex-like syntax doesn't violate matching
+    pattern: '<type.string>(\d+)<type.string>'
+    value: ex(\d+)president
+    is_matched: true
+-
+    pattern: '<type.email> (<type.string>)'
+    value: 'aa@aa.com (my email)'
+    is_matched: true
+-
+    pattern: '<type.email> (<type.integer>)'
+    value: 'aa@aa.com (my email)'
+    is_matched: false
+-
+    pattern: '<type.email> (<type.integer> times)'
+    value: 'aa@aa.com (86 times)'
+    is_matched: true
+-
+    pattern: '<type.email> @<type.integer> times@'
+    value: 'aa@aa.com @86 times@'
+    is_matched: true
+-
+    # check that the symbol '#' doesn't violate matching
+    pattern: '| #<type.integer> | <type.string> | Actions... |'
+    value: '| #86 | Caras Galadhon | Actions... |'
+    is_matched: true
+-
+    pattern: 'Negative <type.string> like <type.integer> are ok.'
+    value: 'Negative numbers like -888 are ok.'
+    is_matched: true
+-
+    pattern: 'Positive <type.string> like <type.integer> are also ok.'
+    value: 'Positive numbers like +888 are also ok.'
+    is_matched: true
+-
+    pattern: 'Paul Thomas <regex.regex(.*)> was born in <regex.regex(\d{4})> in Lübeck.'
+    value: 'Paul Thomas Mann was born in 1875 in Lübeck.'
+    is_matched: true

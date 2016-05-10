@@ -1,0 +1,25 @@
+{
+    "name": "aa/array-diff",
+    "type": "library",
+    "description": "Component for calculating difference of arrays",
+    "homepage": "https://github.com/AAstakhov/array-diff",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5 || ^7.0"
+    },
+    "require-dev": {
+        "symfony/yaml": "2.* || 3.*",
+        "phpunit/phpunit": "5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aa\\ArrayDiff\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Aa\\ArrayDiff\\Tests\\": "tests/"
+        }
+    }
+}

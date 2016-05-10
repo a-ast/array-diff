@@ -1,0 +1,57 @@
+test_matched_sequential_arrays:
+    array1:
+        - '<type.string> <type.integer>'
+        - '<type.string>'
+        - '<type.string>'
+        - '<type.string>'
+    array2:
+        - 'Man - Arveleg 2'
+        - 'Elf'
+        - 'Dwarf'
+        - 'Orc'
+
+    diff:
+        missing: []
+        unmatched: []
+
+test_sequential_arrays_with_unmatched_items:
+    array1:
+        - '<type.string> <type.integer>'
+        - '<type.string>'
+        - '<type.boolean>'
+        - '<type.string>'
+    array2:
+        - 'Man - Arveleg'
+        - 'Elf'
+        - 'Dwarf'
+        - 'Orc'
+    diff:
+        missing: []
+        unmatched:
+            -
+                key_path: 0
+                expected: '<type.string> <type.integer>'
+                actual: 'Man - Arveleg'
+            -
+                key_path: 2
+                expected: '<type.boolean>'
+                actual: 'Dwarf'
+
+test_sequential_arrays_with_unmatched_item:
+    array1:
+        - '<type.string>'
+        - '<type.string>'
+        - 'Orc'
+        - '<type.string>'
+    array2:
+        - 'Man'
+        - 'Elf'
+        - 'Dwarf'
+        - 'Orc'
+    diff:
+        missing: []
+        unmatched:
+            -
+                key_path: 2
+                expected: 'Orc'
+                actual: 'Dwarf'
