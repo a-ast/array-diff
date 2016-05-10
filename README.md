@@ -94,7 +94,7 @@ unmatched:
 
 because
 
-* keys of array1 match keys of array2, so we have no missing items
+* keys of array1 match keys of array2, so there are no missing items
 * string 'The Lord of the Rings' matches the expression ```<type.string>```
 * '25.99 EUR' matches the compound expression ```<type.float(2)> <type.string>```
 * 'true' matches the expression ```<type.boolean>```
