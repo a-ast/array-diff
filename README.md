@@ -6,11 +6,11 @@ but calculates a difference of arrays in a better way due to:
 * using expressions (value matching),
 * providing extended information about an array difference.
 
-**Example:**
+**Example**
 
 ```php
-$array1 = ['a' => 1, 'b' => 2, 'c' => 3];
-$array2 = ['a' => 7, 'b' => 2, 'd' => 3];
+$array1 = ['a' => 8, 'b' => 2, 'c' => 3];
+$array2 = ['a' => 6, 'b' => 2, 'd' => 3];
 
 $calc = new Calculator(new SimpleMatcher());
 $diff = $calc->calculateDiff($array1, $array2);
@@ -18,7 +18,7 @@ $diff = $calc->calculateDiff($array1, $array2);
 print $diff->toString();
 ```
 
-will output:
+outputs:
 
 ```yaml
 missing:
@@ -28,52 +28,76 @@ missing:
 unmatched:
     -
         key_path: a
-        expected: 1
-        actual: 7
+        expected: 8
+        actual: 6
 ```
 
+because
 
-**Advanced example** 
-All items of Array #2 match values of Array #1:
+* Item with the key 'c' is **missing** in array2
+* Item with key 'a' have different values (**unmatched**)
+
+**Advanced example**
+
+Let's Assume we have two arrays:
 
 <table>
-<tr><td>Array #1</td><td>Array #2</td></tr>
 <tr>
 <td>
 <pre lang="php">
 $array1 = [
-    'name'     => '&lt;type.string&gt;',
-    'price'    => '&lt;type.float(2)&gt;',
-    'price_f'  => '&lt;type.float(2)&gt;',
-    'in_stock' => true,
+    'name'     => '<type.string>',
+    'price'    => '<type.float(2)> <type.string>',
+    'in_stock' => '<type.boolean>',
     'isbns'    => [
-        'isbn-10' => '',
-        'isbn-13' => '',
+        'isbn-10' => '<type.string>',
     ],
-    'url'      => '<type.link>'
+    'pages'    => '<type.datetime>',
 ];
 </pre>
 </td>
 <td>
 <pre lang="php">
 $array2 = [
-    'name'    => 'The Lord of the Rings',
-    'price'   => '25,99',
-    'price_f' => '25,99 EUR',
+    'name'     => 'The Lord of the Rings',
+    'price'    => '25.99 EUR',
     'in_stock' => true,
     'isbns'    => [
-        'isbn-10' => '',
-        'isbn-13' => '',
+        'isbn-10' => '1230260002385',
     ],
-    'url'      => 'http://book.book/LOTR'
+    'pages'    => 567,
 ];
 </pre> 
 </td>
 </tr>
 </table>
 
+You can calculate difference of arrays using expression matching:
 ```php
 
 $calc = new Calculator(new ExpressionMatcher());
 $diff = $calc->calculateDiff($array1, $array2);
+
+print $diff->toString();
 ```
+
+It returns:
+```yaml
+missing: {  }
+unmatched:
+    -
+        key_path: pages
+        expected: '<type.datetime>'
+        actual: 567
+```
+
+because
+
+* keys of array1 match keys of array2, so we have no missing items
+* string 'The Lord of the Rings' matches expression ```<type.string>```
+* '25.99 EUR' matches compound expression ```<type.float(2)> <type.string>```
+* 'true' matches expression ```<type.boolean>```
+* isbn value '1230260002385' matches expression ```<type.string>```
+* page count '567' **doesn't match** expression ```<type.datetime>```
+
+```<type.string>```, ```<type.boolean>``` and others are expressions.

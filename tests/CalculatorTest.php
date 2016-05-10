@@ -13,10 +13,10 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 {
     use YamlFixtureAwareTrait;
 
-    public function testExampleFromDocumentation()
+    public function testExample1FromDocumentation()
     {
-        $array1 = ['a' => 1, 'b' => 2, 'c' => 3];
-        $array2 = ['a' => 7, 'b' => 2, 'd' => 3];
+        $array1 = ['a' => 8, 'b' => 2, 'c' => 3];
+        $array2 = ['a' => 6, 'b' => 2, 'd' => 3];
 
         $calc = new Calculator(new SimpleMatcher());
         $diff = $calc->calculateDiff($array1, $array2);
@@ -29,8 +29,46 @@ missing:
 unmatched:
     -
         key_path: a
-        expected: 1
-        actual: 7
+        expected: 8
+        actual: 6
+
+EOD;
+
+        $this->assertEquals($expected, $diff->toString());
+    }
+
+    public function testExample2FromDocumentation()
+    {
+        $array1 = [
+            'name'     => '<type.string>',
+            'price'    => '<type.float(2)> <type.string>',
+            'in_stock' => '<type.boolean>',
+            'isbns'    => [
+                'isbn-10' => '<type.string>',
+            ],
+            'pages'    => '<type.datetime>',
+        ];
+
+        $array2 = [
+            'name'     => 'The Lord of the Rings',
+            'price'    => '25.99 EUR',
+            'in_stock' => true,
+            'isbns'    => [
+                'isbn-10' => '1230260002385',
+            ],
+            'pages'    => 567,
+        ];
+
+        $calc = new Calculator(new ExpressionMatcher());
+        $diff = $calc->calculateDiff($array1, $array2);
+
+        $expected = <<<EOD
+missing: {  }
+unmatched:
+    -
+        key_path: pages
+        expected: '<type.datetime>'
+        actual: 567
 
 EOD;
 
