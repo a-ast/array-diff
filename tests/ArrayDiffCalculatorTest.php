@@ -4,6 +4,7 @@ namespace Aa\ArrayDiff\Tests;
 
 use Aa\ArrayDiff\ArrayDiffCalculator;
 use Aa\ArrayDiff\Diff\ArrayDiffInterface;
+use Aa\ArrayDiff\Diff\DiffFormats;
 use Aa\ArrayDiff\Matcher\ExpressionMatcher;
 use Aa\ArrayDiff\Matcher\SimpleMatcher;
 use PHPUnit_Framework_TestCase;
@@ -11,7 +12,7 @@ use PHPUnit_Framework_TestCase;
 class ArrayDiffCalculatorTest extends PHPUnit_Framework_TestCase
 {
     use YamlFixtureAwareTrait;
-    
+
     /**
      * @dataProvider fixtureSimpleDataProvider
      */
@@ -20,7 +21,7 @@ class ArrayDiffCalculatorTest extends PHPUnit_Framework_TestCase
         $calculator = new ArrayDiffCalculator(new SimpleMatcher());
         $calculator->setSequentialKeysSupported(true);
         
-        $actualDiff = $calculator->calculateDiff($expected, $actual)->toArray();
+        $actualDiff = $calculator->calculateDiff($expected, $actual)->toArray(DiffFormats::FULL);
         
         $this->assertEquals($expectedDiff, $actualDiff);
     }
@@ -34,7 +35,7 @@ class ArrayDiffCalculatorTest extends PHPUnit_Framework_TestCase
         $calculator->setSequentialKeysSupported(true);
         
         $standardDiff = array_diff_recursive($expected, $actual);
-        $formattedAsStandardDiff =  $actualDiff = $calculator->calculateDiff($expected, $actual)->toArray(ArrayDiffInterface::FUNCTION_FORMAT);
+        $formattedAsStandardDiff = $actualDiff = $calculator->calculateDiff($expected, $actual)->toArray(DiffFormats::PHP_FUNCTION_ALIKE);
 
         $this->assertEquals($standardDiff, $formattedAsStandardDiff);
     }
@@ -46,7 +47,7 @@ class ArrayDiffCalculatorTest extends PHPUnit_Framework_TestCase
     {
         $calculator = new ArrayDiffCalculator(new ExpressionMatcher());
 
-        $actualDiff = $calculator->calculateDiff($expected, $actual)->toArray();
+        $actualDiff = $calculator->calculateDiff($expected, $actual)->toArray(DiffFormats::FULL);
 
         $this->assertEquals($expectedDiff, $actualDiff);
     }   

@@ -15,6 +15,18 @@ class ArrayDiff implements ArrayDiffInterface
      */
     private $unmatched = [];
 
+    /**
+     * @var Formatter
+     */
+    private $formatter;
+
+    /**
+     * Constructor.
+     */
+    function __construct()
+    {
+        $this->formatter = new Formatter();
+    }
 
     public function addMissing($propertyPath, $expected)
     {
@@ -22,6 +34,8 @@ class ArrayDiff implements ArrayDiffInterface
             'key_path' => $propertyPath,
             'expected' => $expected,
         ];
+
+        return $this;
     }
 
     public function addUnmatched($propertyPath, $expected, $actual)
@@ -31,37 +45,27 @@ class ArrayDiff implements ArrayDiffInterface
             'expected' => $expected,
             'actual' => $actual,
         ];
+
+        return $this;
     }
     
-    public function toArray($format = self::DISTINCT_FORMAT)
+    public function toArray($format)
     {
-        switch ($format) {
-            case self::DISTINCT_FORMAT:
-                return [
-                    'missing' => $this->missing,
-                    'unmatched' => $this->unmatched,
-                ];
-            case self::FUNCTION_FORMAT:
-                $arrayDiff = [];
-                foreach ($this->missing as $item) {
-                    $this->setArrayValueByPath($arrayDiff, $item['key_path'], $item['expected']);
-                }
-                foreach ($this->unmatched as $item) {
-                    $this->setArrayValueByPath($arrayDiff, $item['key_path'], $item['expected']);
-                }
-                return $arrayDiff;
-        }
+        return $this->formatter->toArray($this, $format);
     }
 
-    private function setArrayValueByPath(&$source, $propertyPath, &$value)
+    public function toString($format)
     {
-        $propertyPathArray = explode('/', $propertyPath);
+        return $this->formatter->toString($this, $format);
+    }
 
-        $temp = &$source;
-        foreach($propertyPathArray as $key) {
-            $temp = &$temp[$key];
-        }
-        $temp = $value;
-        unset($temp);
+    public function getMissing()
+    {
+        return $this->missing;
+    }
+
+    public function getUnmatched()
+    {
+        return $this->unmatched;
     }
 }

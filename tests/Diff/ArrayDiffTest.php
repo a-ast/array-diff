@@ -4,6 +4,7 @@ namespace Aa\ArrayDiff\Tests\Diff;
 
 use Aa\ArrayDiff\Diff\ArrayDiff;
 use Aa\ArrayDiff\Diff\ArrayDiffInterface;
+use Aa\ArrayDiff\Diff\DiffFormats;
 use Aa\ArrayDiff\Tests\YamlFixtureAwareTrait;
 use PHPUnit_Framework_TestCase;
 
@@ -28,8 +29,8 @@ class ArrayDiffTest extends PHPUnit_Framework_TestCase
             $diff->addUnmatched($item[0], $item[1], $item[2]);
         }        
 
-        $this->assertEquals($format1, $diff->toArray());
-        $this->assertEquals($format2, $diff->toArray(ArrayDiffInterface::FUNCTION_FORMAT));
+        $this->assertEquals($format1, $diff->toArray(DiffFormats::FULL));
+        $this->assertEquals($format2, $diff->toArray(DiffFormats::PHP_FUNCTION_ALIKE));
     }
     
     public function fixtureDataProvider()
