@@ -1,7 +1,7 @@
 # ArrayDiffCalculator
 
 ArrayDiffCalculator works similar to a php function array_diff_assoc 
-but calculates a difference of arrays better due to:
+but calculates a difference of arrays in a better way due to:
 
 * using expressions (value matching),
 * providing extended information about an array difference.
@@ -9,14 +9,11 @@ but calculates a difference of arrays better due to:
 Basic example:
 
 ```php
-
 $array1 = ['a' => 1, 'b' => 2, 'c' => 3];
 $array2 = ['a' => 7, 'b' => 2, 'd' => 3];
 
 $calc = new ArrayDiffCalculator(new SimpleMatcher());
-$diff = $calc->calculateDiff($array1, $array2)->toArray();
-
-print $diff->toString();
+print $calc->calculateDiff($array1, $array2)->toString();
 ```
 
 will output:
