@@ -12,7 +12,7 @@ Basic example:
 $array1 = ['a' => 1, 'b' => 2, 'c' => 3];
 $array2 = ['a' => 7, 'b' => 2, 'd' => 3];
 
-$calc = new ArrayDiffCalculator(new SimpleMatcher());
+$calc = new Calculator(new SimpleMatcher());
 $diff = $calc->calculateDiff($array1, $array2);
 
 print $diff->toString();
@@ -22,9 +22,14 @@ will output:
 
 ```
 missing:
-    'c' => 3
+    -
+        key_path: c
+        expected: 3
 unmatched:
-    'a' => 1
+    -
+        key_path: a
+        expected: 1
+        actual: 7
 ```
 
 

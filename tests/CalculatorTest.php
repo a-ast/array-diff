@@ -13,6 +13,30 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 {
     use YamlFixtureAwareTrait;
 
+    public function testExampleFromDocumentation()
+    {
+        $array1 = ['a' => 1, 'b' => 2, 'c' => 3];
+        $array2 = ['a' => 7, 'b' => 2, 'd' => 3];
+
+        $calc = new Calculator(new SimpleMatcher());
+        $diff = $calc->calculateDiff($array1, $array2);
+
+        $expected = <<<EOD
+missing:
+    -
+        key_path: c
+        expected: 3
+unmatched:
+    -
+        key_path: a
+        expected: 1
+        actual: 7
+
+EOD;
+
+        $this->assertEquals($expected, $diff->toString());
+    }
+
     /**
      * @dataProvider fixtureSimpleDataProvider
      */
