@@ -37,7 +37,7 @@ unmatched:
 because
 
 * Item with the key 'c' is **missing** in array2
-* Item with key 'a' have different values (**unmatched**)
+* Items with key 'a' have different values (**unmatched**)
 
 **Advanced example**
 
@@ -74,7 +74,7 @@ $array2 = [
 </tr>
 </table>
 
-You can calculate difference of these arrays using an expression matching:
+You can calculate a difference of these arrays using an expression matching:
 ```php
 
 $calc = new Calculator(new ExpressionMatcher());
@@ -96,10 +96,10 @@ unmatched:
 because
 
 * keys of array1 match keys of array2, so we have no missing items
-* string 'The Lord of the Rings' matches expression ```<type.string>```
-* '25.99 EUR' matches compound expression ```<type.float(2)> <type.string>```
-* 'true' matches expression ```<type.boolean>```
-* isbn value '1230260002385' matches expression ```<type.string>```
-* page count '567' **doesn't match** expression ```<type.datetime>```
+* string 'The Lord of the Rings' matches the expression ```<type.string>```
+* '25.99 EUR' matches the compound expression ```<type.float(2)> <type.string>```
+* 'true' matches the expression ```<type.boolean>```
+* isbn value '1230260002385' matches the expression ```<type.string>```
+* page count '567' **doesn't match** the expression ```<type.datetime>```
 
-```<type.string>```, ```<type.boolean>``` and others are expressions.
+Expressions have syntax ```<expresion-name(param1, param2,...)>```.
