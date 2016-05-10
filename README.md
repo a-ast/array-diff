@@ -76,7 +76,6 @@ $array2 = [
 
 You can calculate a difference of these arrays using an expression matching:
 ```php
-
 $calc = new Calculator(new ExpressionMatcher());
 $diff = $calc->calculateDiff($array1, $array2);
 
