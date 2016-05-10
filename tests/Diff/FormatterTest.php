@@ -2,7 +2,7 @@
 
 namespace Aa\ArrayDiff\Tests\Diff;
 
-use Aa\ArrayDiff\Diff\ArrayDiff;
+use Aa\ArrayDiff\Diff\Diff;
 use Aa\ArrayDiff\Diff\DiffFormats;
 use Aa\ArrayDiff\Diff\Formatter;
 use PHPUnit_Framework_TestCase;
@@ -11,7 +11,7 @@ class FormatterTest extends PHPUnit_Framework_TestCase
 {
     public function test_to_string()
     {
-        $diff = new ArrayDiff();
+        $diff = new Diff();
         $diff
             ->addMissing('Team', 'The Fellowship Of The Ring')
             ->addMissing('Members/Hobbits/Hobbit1', 'Bilbo Baggins')

@@ -2,7 +2,7 @@
 
 namespace Aa\ArrayDiff\Matcher;
 
-interface ValueMatcherInterface
+interface MatcherInterface
 {
     public function isMatched($value1, $value2);
 }

@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class Formatter
 {
-    public function toArray(ArrayDiff $diff, $format)
+    public function toArray(Diff $diff, $format)
     {
         switch ($format) {
             case DiffFormats::FULL:
@@ -26,7 +26,7 @@ class Formatter
         }
     }
 
-    public function toString(ArrayDiff $diff, $format)
+    public function toString(Diff $diff, $format)
     {
         return Yaml::dump($this->toArray($diff, DiffFormats::FULL), 3);
     }

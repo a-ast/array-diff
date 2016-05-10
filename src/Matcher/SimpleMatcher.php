@@ -2,7 +2,7 @@
 
 namespace Aa\ArrayDiff\Matcher;
 
-class SimpleMatcher implements ValueMatcherInterface
+class SimpleMatcher implements MatcherInterface
 {
     public function isMatched($value1, $value2)
     {

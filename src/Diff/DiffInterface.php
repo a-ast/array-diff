@@ -2,7 +2,7 @@
 
 namespace Aa\ArrayDiff\Diff;
 
-interface ArrayDiffInterface
+interface DiffInterface
 {
     /**
      * @param int $format

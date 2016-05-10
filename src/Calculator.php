@@ -2,14 +2,14 @@
 
 namespace Aa\ArrayDiff;
 
-use Aa\ArrayDiff\Diff\ArrayDiff;
-use Aa\ArrayDiff\Diff\ArrayDiffInterface;
-use Aa\ArrayDiff\Matcher\ValueMatcherInterface;
+use Aa\ArrayDiff\Diff\Diff;
+use Aa\ArrayDiff\Diff\DiffInterface;
+use Aa\ArrayDiff\Matcher\MatcherInterface;
 
-class ArrayDiffCalculator
+class Calculator
 {
     /**
-     * @var ValueMatcherInterface
+     * @var MatcherInterface
      */
     private $valueMatcher;
 
@@ -21,9 +21,9 @@ class ArrayDiffCalculator
     /**
      * Constructor.
      * 
-     * @param ValueMatcherInterface $valueMatcher
+     * @param MatcherInterface $valueMatcher
      */
-    public function __construct(ValueMatcherInterface $valueMatcher)
+    public function __construct(MatcherInterface $valueMatcher)
     {
         $this->valueMatcher = $valueMatcher;
     }
@@ -34,19 +34,19 @@ class ArrayDiffCalculator
      * @param array $array1
      * @param array $array2
      *
-     * @return ArrayDiffInterface
+     * @return DiffInterface
      */
     public function calculateDiff(&$array1, &$array2)
     {
         $keyPath = new KeyPath();
-        $diff = new ArrayDiff();
+        $diff = new Diff();
 
         $this->internalDiff($array1, $array2, $keyPath, $diff);
 
         return $diff;
     }
 
-    private function internalDiff(&$array1, &$array2, KeyPath $keyPath, ArrayDiff $diff)
+    private function internalDiff(&$array1, &$array2, KeyPath $keyPath, Diff $diff)
     {
         foreach ($array1 as $key => &$item) {
 
@@ -95,7 +95,7 @@ class ArrayDiffCalculator
     /**
      * @param boolean $value
      * 
-     * @return ArrayDiffCalculator
+     * @return Calculator
      */
     public function setSequentialKeysSupported($value)
     {

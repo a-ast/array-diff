@@ -6,7 +6,7 @@ use Aa\ArrayDiff\Regex\RegexCollection;
 use Aa\ArrayDiff\Regex\RegexRegex;
 use Aa\ArrayDiff\Regex\TypeRegexCollection;
 
-class ExpressionMatcher implements ValueMatcherInterface
+class ExpressionMatcher implements MatcherInterface
 {
     /**
      * @var RegexCollection

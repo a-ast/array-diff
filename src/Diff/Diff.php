@@ -3,7 +3,7 @@
 
 namespace Aa\ArrayDiff\Diff;
 
-class ArrayDiff implements ArrayDiffInterface
+class Diff implements DiffInterface
 {
     /**
      * @var array

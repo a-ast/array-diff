@@ -2,13 +2,13 @@
 
 namespace Aa\ArrayDiff\Tests\Diff;
 
-use Aa\ArrayDiff\Diff\ArrayDiff;
-use Aa\ArrayDiff\Diff\ArrayDiffInterface;
+use Aa\ArrayDiff\Diff\Diff;
+use Aa\ArrayDiff\Diff\DiffInterface;
 use Aa\ArrayDiff\Diff\DiffFormats;
 use Aa\ArrayDiff\Tests\YamlFixtureAwareTrait;
 use PHPUnit_Framework_TestCase;
 
-class ArrayDiffTest extends PHPUnit_Framework_TestCase
+class DiffTest extends PHPUnit_Framework_TestCase
 {
     use YamlFixtureAwareTrait;
 
@@ -21,7 +21,7 @@ class ArrayDiffTest extends PHPUnit_Framework_TestCase
      */
     public function testToArrayFormats($input, $format1, $format2)
     {
-        $diff = new ArrayDiff();
+        $diff = new Diff();
         foreach ($input['missing'] as $item) {
             $diff->addMissing($item[0], $item[1]);    
         }
