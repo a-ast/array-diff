@@ -1,5 +1,7 @@
 # ArrayDiff Calculator
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/00de23df-b87f-4bab-9322-f794cad333fc/mini.png)](https://insight.sensiolabs.com/projects/00de23df-b87f-4bab-9322-f794cad333fc)
+
 ArrayDiff Calculator works similar to a php function ```array_diff_assoc``` 
 but calculates a difference of arrays in a better way due to:
 
