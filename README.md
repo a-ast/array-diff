@@ -1,12 +1,12 @@
-# ArrayDiffCalculator
+# ArrayDiff Calculator
 
-ArrayDiffCalculator works similar to a php function array_diff_assoc 
+ArrayDiff Calculator works similar to a php function array_diff_assoc 
 but calculates a difference of arrays in a better way due to:
 
 * using expressions (value matching),
 * providing extended information about an array difference.
 
-Basic example:
+**Example:**
 
 ```php
 $array1 = ['a' => 1, 'b' => 2, 'c' => 3];
@@ -20,7 +20,7 @@ print $diff->toString();
 
 will output:
 
-```
+```yaml
 missing:
     -
         key_path: c
@@ -33,7 +33,8 @@ unmatched:
 ```
 
 
-Advanced example. All items of Array #2 match values of Array #1:
+**Advanced example** 
+All items of Array #2 match values of Array #1:
 
 <table>
 <tr><td>Array #1</td><td>Array #2</td></tr>
@@ -73,6 +74,6 @@ $array2 = [
 
 ```php
 
-$calc = new ArrayDiffCalculator(new ExpressionMatcher());
-$diff = $calc->calculateDiff($array1, $array2)->toArray();
+$calc = new Calculator(new ExpressionMatcher());
+$diff = $calc->calculateDiff($array1, $array2);
 ```
