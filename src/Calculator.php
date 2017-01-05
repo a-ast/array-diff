@@ -63,7 +63,7 @@ class Calculator
                 }
             }
             
-            if(!isset($array2[$key])) {
+            if(!array_key_exists($key, $array2)) {
                 $diff->addMissing($keyPath->getPathString(), $item);
                 
                 $keyPath->pop();
