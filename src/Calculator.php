@@ -20,7 +20,7 @@ class Calculator
 
     /**
      * Constructor.
-     * 
+     *
      * @param MatcherInterface $valueMatcher
      */
     public function __construct(MatcherInterface $valueMatcher)
@@ -52,7 +52,7 @@ class Calculator
 
             $keyPath->push($key);
 
-            if($this->areSequentialKeysSupported()) {
+            if ($this->areSequentialKeysSupported()) {
                 if (is_int($key) && !is_array($item)) {
                     if (!in_array($item, $array2)) {
                         // element is not present in sequential array
@@ -62,24 +62,24 @@ class Calculator
                     continue;
                 }
             }
-            
-            if(!array_key_exists($key, $array2)) {
+
+            if (!array_key_exists($key, $array2)) {
                 $diff->addMissing($keyPath->getPathString(), $item);
-                
+
                 $keyPath->pop();
                 continue;
             }
 
-            if(is_array($item)) {
+            if (is_array($item)) {
                 $this->internalDiff($item, $array2[$key], $keyPath, $diff);
-                
+
                 $keyPath->pop();
                 continue;
             }
 
             $matchingItem = $array2[$key];
 
-            if(false === $this->valueMatcher->isMatched($item, $matchingItem)) {
+            if (false === $this->valueMatcher->isMatched($item, $matchingItem)) {
                 $diff->addUnmatched($keyPath->getPathString(), $item, $matchingItem);
             }
 
@@ -94,13 +94,13 @@ class Calculator
 
     /**
      * @param boolean $value
-     * 
+     *
      * @return Calculator
      */
     public function setSequentialKeysSupported($value)
     {
         $this->areSequentialKeysSupported = $value;
-        
+
         return $this;
     }
 }
